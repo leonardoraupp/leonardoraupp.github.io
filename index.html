@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        
+
         body {
             display: flex;
             flex-direction: column;
@@ -21,20 +22,20 @@
             overflow: hidden;
             text-align: center;
         }
-        
+
         .fade-in {
             opacity: 0;
             transform: translateY(-20px);
             animation: fadeIn 1.5s ease-in-out forwards;
         }
-        
+
         @keyframes fadeIn {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .card {
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
@@ -43,7 +44,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             width: 300px;
         }
-        
+
         .profile-img {
             width: 100px;
             height: 100px;
@@ -51,7 +52,7 @@
             object-fit: cover;
             margin-bottom: 10px;
         }
-        
+
         .word-cloud {
             margin-top: 20px;
             display: flex;
@@ -59,7 +60,7 @@
             justify-content: center;
             gap: 10px;
         }
-        
+
         .word-cloud span {
             background: rgba(255, 255, 255, 0.2);
             padding: 5px 10px;
@@ -67,27 +68,27 @@
             font-size: 14px;
             transition: transform 0.3s, background 0.3s;
         }
-        
+
         .word-cloud span:hover {
             transform: scale(1.1);
             background: rgba(255, 255, 255, 0.4);
         }
-        
+
         .social-links {
             margin-top: 10px;
         }
-        
+
         .social-links a {
             color: white;
             font-size: 20px;
             margin: 0 10px;
             transition: color 0.3s;
         }
-        
+
         .social-links a:hover {
             color: #ffcc00;
         }
-        
+
         .volume-control {
             position: fixed;
             bottom: 20px;
@@ -98,7 +99,7 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        
+
         .volume-control:hover {
             background: rgba(255, 255, 255, 0.4);
         }
@@ -114,6 +115,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="card fade-in">
         <img src="profile.jpg" alt="Minha Foto" class="profile-img">
@@ -125,7 +127,7 @@
             <a href="https://github.com/leonardoraupp" target="_blank"><i class="fab fa-github"></i></a>
         </div>
     </div>
-    
+
     <div class="word-cloud fade-in">
         <span>Spring Boot</span>
         <span>Java</span>
@@ -136,21 +138,35 @@
         <span>OpenAPI Specification</span>
         <span>JavaScript</span>
     </div>
-    
+
     <audio id="background-music" loop>
         <source src="robot-dreams-292336.mp3" type="audio/mpeg">
         Seu navegador não suporta áudio HTML5.
     </audio>
-    
+
     <div class="volume-control" onclick="toggleVolume()">
         <i class="fas fa-volume-up"></i>
     </div>
-    
+
     <script>
         const audio = document.getElementById("background-music");
         audio.volume = 0.5;
-        audio.play();
-        
+
+        // Tentar iniciar automaticamente
+        const playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                console.log("Autoplay bloqueado. Aguardando interação do usuário.");
+                document.addEventListener("click", startAudio);
+            });
+        }
+
+        function startAudio() {
+            audio.play().catch(error => console.log("Erro ao iniciar áudio: " + error));
+            document.removeEventListener("click", startAudio);
+        }
+
         function toggleVolume() {
             if (audio.muted) {
                 audio.muted = false;
@@ -174,4 +190,5 @@
         }
     </script>
 </body>
+
 </html>
