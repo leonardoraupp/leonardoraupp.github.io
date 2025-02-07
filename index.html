@@ -1,193 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Portfólio</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <title>Leonardo's skills</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
         body {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
             color: white;
+            font-family: 'Poppins', sans-serif;
             overflow: hidden;
-            text-align: center;
+            margin: 0;
+            flex-direction: column;
         }
 
-        .fade-in {
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            width: 300px;
-        }
-
-        .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .word-cloud {
-            margin-top: 20px;
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            align-items: center;
+            padding: 20px;
+            z-index: 1;
         }
 
-        .word-cloud span {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            transition: transform 0.3s, background 0.3s;
+        .card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
         }
 
-        .word-cloud span:hover {
-            transform: scale(1.1);
-            background: rgba(255, 255, 255, 0.4);
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
         }
 
-        .social-links {
+        .social {
             margin-top: 10px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
         }
 
-        .social-links a {
+        .social a {
             color: white;
-            font-size: 20px;
-            margin: 0 10px;
-            transition: color 0.3s;
+            text-decoration: none;
+            font-size: 24px;
+            transition: transform 0.3s;
         }
 
-        .social-links a:hover {
+        .social a i {
+            font-size: 30px;
+        }
+
+        .social a:hover {
+            transform: scale(1.2);
+        }
+
+        .skill {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.3s, color 0.3s;
+            cursor: pointer;
+            margin: 20px;
+            padding: 12px;
+        }
+
+        .skill:hover {
+            transform: scale(1.2) rotate(5deg);
             color: #ffcc00;
         }
 
-        .volume-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
+        #search-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff4b2b, #ff416c, #ff4b2b);
+            /* Gradiente animado */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 4s infinite linear alternate;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            /* Ajuste para ficar mais próximo da imagem */
+            z-index: 10;
+            position: absolute;
+            top: 30%;
+            /* Posição ajustada para ficar mais perto do centro */
+            transform: translateY(-50%);
+            padding: 2%;
+            margin: 2%;
         }
 
-        .volume-control:hover {
-            background: rgba(255, 255, 255, 0.4);
+        #search-message-span {
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff4b2b, #ff416c, #ff4b2b);
+            /* Gradiente animado */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 4s infinite linear alternate;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            /* Ajuste para ficar mais próximo da imagem */
+            z-index: 9;
+            position: absolute;
+            top: 33%;
+            /* Posição ajustada para ficar mais perto do centro */
+            transform: translateY(-50%);
+            padding: 2%;
+            margin: 2%;
         }
 
-        .translate-btn {
-            background: none;
-            border: none;
+
+        #search-message:hover {
+            /* transform: scale(1.2) rotate(5deg); */
             color: white;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 10px;
-            text-decoration: underline;
+        }
+
+        #search-message i {
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+
+        @keyframes vibrate {
+            0% {
+                transform: translate(0);
+            }
+
+            25% {
+                transform: translate(-2px, 2px);
+            }
+
+            50% {
+                transform: translate(2px, -2px);
+            }
+
+            75% {
+                transform: translate(-2px, -2px);
+            }
+
+            100% {
+                transform: translate(2px, 2px);
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
 <body>
-    <div class="card fade-in">
-        <img src="profile.jpg" alt="Minha Foto" class="profile-img">
-        <h2>Leonardo Raupp</h2>
-        <p id="bio">Automation Test & Backend Developer passionate about technology and innovation.</p>
-        <button class="translate-btn" onclick="toggleTranslation()">Translate to Portuguese</button>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/leonardo-raupp/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/leonardoraupp" target="_blank"><i class="fab fa-github"></i></a>
+    <!-- Mensagem no topo, acima da imagem -->
+    <div id="search-message">
+        <h2>Search some skill</h2>
+    </div>
+    <div id="search-message-span">
+        <span>(CTRL + F)</span>
+    </div>
+    <div class="container">
+        <div class="card">
+            <img src="profile.jpg" alt="Minha Foto" id="profile-img">
+            <div class="social">
+                <a href="https://github.com/leonardoraupp" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/leonardo-raupp/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
         </div>
     </div>
 
-    <div class="word-cloud fade-in">
-        <span>Spring Boot</span>
-        <span>Java</span>
-        <span>PostgreSQL</span>
-        <span>MongoDB</span>
-        <span>Selenium</span>
-        <span>Cypress</span>
-        <span>OpenAPI Specification</span>
-        <span>JavaScript</span>
-    </div>
-
-    <audio id="background-music" loop>
-        <source src="robot-dreams-292336.mp3" type="audio/mpeg">
-        Seu navegador não suporta áudio HTML5.
-    </audio>
-
-    <div class="volume-control" onclick="toggleVolume()">
-        <i class="fas fa-volume-up"></i>
-    </div>
-
     <script>
-        const audio = document.getElementById("background-music");
-        audio.volume = 0.5;
+        const skillsList = ["Java", "Spring Boot", "PostgreSQL", "MongoDB", "MySQL", "Oracle", "AWS", "Docker", "CI/CD", "RESTful", "GraphQL", "Redis", "Cypress", "JavaScript",
+            "Postman", "JWT", "Oauth", "Test Automation", "PHP", "Python", "Jira", "Kanban", "Scrum", "API Test", "Selenium", "JMter", "Curl", "Maven", "Intellij", "Eclipse", "Visual Studio Code", "Linux", "Ubunto", "Windows",
+            "React", "React Native", "Mobile Testing", "SOLID", "Design Patterns", "Open API Specification", "Swagger Tools", "Node JS", "Sequelize JS", "Spring MVC", "JPA", "Object-Oriented Programming", "Quality Assurance",
+            "HTTP", "TCP", "BDD", "Gherkin", "New Relic", "Splunk", "Rest Assured", "Test Case/Scenario Creation", "Office package", "English", "HTML 5", "CSS"];
+        const container = document.querySelector(".container");
+        const profileImg = document.getElementById("profile-img");
+        const socialIcons = document.querySelectorAll(".social a");
+        const searchMessage = document.getElementById("search-message");
 
-        // Tentar iniciar automaticamente
-        const playPromise = audio.play();
+        const profileImgRect = profileImg.getBoundingClientRect();
+        const socialIconRects = [...socialIcons].map(icon => icon.getBoundingClientRect());
+        const searchMessageRects = searchMessage.getBoundingClientRect();
 
-        if (playPromise !== undefined) {
-            playPromise.catch(() => {
-                console.log("Autoplay bloqueado. Aguardando interação do usuário.");
-                document.addEventListener("click", startAudio);
+        let skillPositions = [];
+
+        function generateSkills() {
+            skillsList.forEach(skill => {
+                let skillElement = document.createElement("span");
+                skillElement.classList.add("skill");
+                skillElement.innerText = skill;
+                skillElement.style.fontSize = `${Math.random() * 10 + 14}px`;
+
+                let positionFound = false;
+                let x, y;
+
+                while (!positionFound) {
+                    // Vamos gerar posições em todos os quadrantes em relação à foto central
+                    x = Math.random() * (window.innerWidth - 100); // Subtrai para garantir que as palavras não saiam do lado direito
+                    y = Math.random() * (window.innerHeight / 1.5 - 100) + 150; // Ajuste para ficar mais abaixo, sem overflow nas laterais
+
+                    // Verifica se a palavra sobrepõe a foto ou os ícones
+                    const skillRect = { left: x, top: y, right: x + skillElement.offsetWidth, bottom: y + skillElement.offsetHeight };
+
+                    const isOverlappingWithProfile = (
+                        skillRect.right > profileImgRect.left && skillRect.left < profileImgRect.right &&
+                        skillRect.bottom > profileImgRect.top && skillRect.top < profileImgRect.bottom
+                    );
+
+                    const isOverlappingWithIcons = socialIconRects.some(iconRect => (
+                        skillRect.right > iconRect.left && skillRect.left < iconRect.right &&
+                        skillRect.bottom > iconRect.top && skillRect.top < iconRect.bottom
+                    ));
+
+                    const isOverlappingWithSearchMessage = socialIconRects.some(iconRect => (
+                        skillRect.right > searchMessageRects.left && skillRect.left < searchMessageRects.right &&
+                        skillRect.bottom > searchMessageRects.top && skillRect.top < searchMessageRects.bottom
+                    ));
+
+
+                    // Se não houver sobreposição com a foto ou ícones, e não sobrepor outra palavra, a posição é válida
+                    if (!isOverlappingWithProfile && !isOverlappingWithIcons && !isOverlappingWithSearchMessage && !isOverlappingWithOtherSkills(skillRect)) {
+                        positionFound = true;
+                    }
+                }
+
+                skillElement.style.left = `${x}px`;
+                skillElement.style.top = `${y}px`;
+
+                skillPositions.push({ x, y, width: skillElement.offsetWidth, height: skillElement.offsetHeight });
+
+                skillElement.addEventListener("mouseover", () => {
+                    skillElement.style.transform = "scale(1.2) rotate(5deg)";
+                    skillElement.style.color = "#ffcc00";
+                });
+                skillElement.addEventListener("mouseout", () => {
+                    skillElement.style.transform = "";
+                    skillElement.style.color = "white";
+                });
+                skillElement.addEventListener("click", () => {
+                    skillElement.style.animation = "vibrate 0.3s ease-in-out";
+                    skillElement.style.color = "#ff5733";
+                    setTimeout(() => {
+                        skillElement.style.animation = "";
+                    }, 300);
+                });
+
+                container.appendChild(skillElement);
             });
         }
 
-        function startAudio() {
-            audio.play().catch(error => console.log("Erro ao iniciar áudio: " + error));
-            document.removeEventListener("click", startAudio);
+        function isOverlappingWithOtherSkills(skillRect) {
+            return skillPositions.some(pos => {
+                return !(skillRect.right < pos.x || skillRect.left > pos.x + pos.width || skillRect.bottom < pos.y || skillRect.top > pos.y + pos.height);
+            });
         }
 
-        function toggleVolume() {
-            if (audio.muted) {
-                audio.muted = false;
-                document.querySelector(".volume-control i").classList.replace("fa-volume-mute", "fa-volume-up");
-            } else {
-                audio.muted = true;
-                document.querySelector(".volume-control i").classList.replace("fa-volume-up", "fa-volume-mute");
-            }
-        }
-
-        function toggleTranslation() {
-            const bioElement = document.getElementById("bio");
-            const button = document.querySelector(".translate-btn");
-            if (bioElement.textContent === "Automation Test & Backend Developer passionate about technology and innovation.") {
-                bioElement.textContent = "Automation Test & Desenvolvedor Backend apaixonado por tecnologia e inovação.";
-                button.textContent = "Translate to English";
-            } else {
-                bioElement.textContent = "Automation Test & Backend Developer passionate about technology and innovation.";
-                button.textContent = "Translate to Portuguese";
-            }
-        }
+        generateSkills();
     </script>
 </body>
 
